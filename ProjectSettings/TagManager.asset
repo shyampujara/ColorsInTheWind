@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ruby
   - Lava
+  - Fire
+  - Director
   layers:
   - Default
   - TransparentFX
