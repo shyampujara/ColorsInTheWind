@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
-
+using UnityEngine.Playables;
 
 public class SimpleCharacterControl : MonoBehaviour {
 
@@ -39,6 +39,8 @@ public class SimpleCharacterControl : MonoBehaviour {
     private bool m_isGrounded;
     private float old_distance = 1000f;
     private List<Collider> m_collisions = new List<Collider>();
+    private bool jumpIn = false;
+    public PlayableDirector cutscene;
 
     public GameObject ruby2;
     public GameObject ruby3;
@@ -50,6 +52,7 @@ public class SimpleCharacterControl : MonoBehaviour {
       ruby3.SetActive(false);
       ruby4.SetActive(false);
       ruby5.SetActive(false);
+      
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -90,6 +93,7 @@ public class SimpleCharacterControl : MonoBehaviour {
               instructions.text = "You feel the volcano pulling you in. Do you want to jump in? (y/n)";
               m_moveSpeed = 0;
               m_turnSpeed = 0;
+              jumpIn = true;
             }
             old_distance = 5000;
             gem_count++;
@@ -134,7 +138,8 @@ public class SimpleCharacterControl : MonoBehaviour {
         if (m_collisions.Count == 0) { m_isGrounded = false; }
     }
 
-	void Update () {
+    void Update()
+    {
         m_animator.SetBool("Grounded", m_isGrounded);
 
         if (Input.GetKeyDown("r"))
@@ -202,6 +207,23 @@ public class SimpleCharacterControl : MonoBehaviour {
             default:
                 Debug.LogError("Unsupported state");
                 break;
+        }
+
+        if (jumpIn)
+        {
+            if (Input.GetKeyDown("n"))
+            {
+                instructions.text = "You try to resist, but your body forces you in!";
+            }
+            if (Input.GetKeyDown("y"))
+            {
+                instructions.text = "You have the urge for death! You jump in.";
+            }
+
+            if (Input.GetKeyDown("y") || Input.GetKeyDown("n"))
+            {
+                cutscene.Play();
+            }
         }
 
         m_wasGrounded = m_isGrounded;
