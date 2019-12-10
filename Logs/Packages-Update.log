@@ -66,7 +66,11 @@ The following packages were updated:
   com.unity.purchasing from version 2.0.3 to 2.0.6
   com.unity.textmeshpro from version 1.4.1 to 2.0.1
 
+<<<<<<< HEAD
+=== Mon Dec  9 00:43:24 2019
+=======
 === Mon Dec  9 00:51:06 2019
+>>>>>>> 0ec5dc43d9968577e579c7da9b5ab3e418e13d41
 
 Packages were changed.
 Update Mode: updateDependencies
