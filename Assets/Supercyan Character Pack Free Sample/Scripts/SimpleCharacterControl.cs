@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.Playables;
+using System.Collections;
 
 public class SimpleCharacterControl : MonoBehaviour {
 
@@ -52,7 +54,7 @@ public class SimpleCharacterControl : MonoBehaviour {
       ruby3.SetActive(false);
       ruby4.SetActive(false);
       ruby5.SetActive(false);
-      
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -222,7 +224,9 @@ public class SimpleCharacterControl : MonoBehaviour {
 
             if (Input.GetKeyDown("y") || Input.GetKeyDown("n"))
             {
+                double duration = cutscene.duration;
                 cutscene.Play();
+                StartCoroutine(Wait((float) duration));
             }
         }
 
@@ -309,5 +313,11 @@ public class SimpleCharacterControl : MonoBehaviour {
         {
             m_animator.SetTrigger("Jump");
         }
+    }
+
+    IEnumerator Wait(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene("Level1b");
     }
 }
